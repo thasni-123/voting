@@ -1,5 +1,5 @@
 {
-  "name": "e-voting-system",
+  "name": "voting",
   "version": "1.0.0",
   "scripts": {
     "start": "vercel dev"
