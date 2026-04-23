@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>E-Voting System</title>
+</head>
+<body>
+    <h1>E-Voting System</h1>
+
+    <form id="voteForm">
+        <input type="text" id="voterName" placeholder="Your Name" required><br><br>
+
+        <select id="candidate">
+            <option>Candidate A</option>
+            <option>Candidate B</option>
+            <option>Candidate C</option>
+        </select><br><br>
+
+        <button type="submit">Vote</button>
+    </form>
+
+    <div id="result"></div>
+
+    <script>
+        document.getElementById("voteForm").addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            const voterName = document.getElementById("voterName").value;
+            const candidate = document.getElementById("candidate").value;
+
+            const res = await fetch("/api/vote", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ voterName, candidate })
+            });
+
+            const data = await res.json();
+
+            document.getElementById("result").innerHTML =
+                `<h3>${data.message}</h3>
+                 <pre>${JSON.stringify(data.votes, null, 2)}</pre>`;
+        });
+    </script>
+</body>
+</html>
